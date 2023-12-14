@@ -1,4 +1,5 @@
 import React, { MouseEvent } from 'react';
+import DragAndDropFileElement from './DragAndDropFileElement.tsx';
 
 interface DocumentUploadModal {
   handleCloseModalClick: () => void;
@@ -30,6 +31,17 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               d="M6 18L18 6M6 6l12 12"
             />
           </svg>
+        </div>
+        <div className='w-10/12 flex flex-col mx-auto'>
+          <div className='w-[200px] mx-auto text-[#082C4D] text-2xl font-medium'>
+            Document Upload
+            <hr className='mt-1 text-[#CBCFDC] '/>
+          </div>
+          <div className='flex flex-row justify-between mt-3 sm:mt-5'>
+            <div className='w-6/12 flex flex-col'>
+              <DragAndDropFileElement />
+            </div>
+          </div>
         </div>
       </div>
     </div>
