@@ -41,8 +41,7 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, option
           {currentChoice !== null && currentChoice !== '' ? currentChoice : defaultText }
         </div>
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className='h-6 w-6 pr-3 text-[#303144]'
+          className={`h-6 w-6 pr-3 text-[#303144] transform transition-transform ${showDropdownOptions && '-rotate-90 -translate-x-[4px] -translate-y-[6px]'}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
