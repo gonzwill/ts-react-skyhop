@@ -77,6 +77,9 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               </div>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-1'>Location Checking:</div>
+              <div className='text-[#49A244] font-medium text-[11px] mb-2'>
+                All available!
+              </div>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Client:</div>
               <div className='flex flex-row'>
