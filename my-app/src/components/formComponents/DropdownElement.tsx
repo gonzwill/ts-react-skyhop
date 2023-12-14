@@ -31,9 +31,9 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, option
   }, []);
 
   return (
-    <div className='w-full py-1 select-none'>
+    <div className='relative w-full py-1 select-none'>
       <div 
-        className='flex flex-row justify-between items-center rounded-md border border-[#BDC1C7] cursor-pointer'
+        className={`flex flex-row justify-between items-center rounded-md border border-[#BDC1C7] cursor-pointer ${showDropdownOptions && 'rounded-b-none'}`}
         onClick={() => setShowDropdownOptions(!showDropdownOptions)}
         ref={dropdownRef}
       >
@@ -64,7 +64,7 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, option
 
 const DropdownOptions: React.FC<DropdownOptionsProps> = ({ data, handleChoice }) => {
   return (
-    <div className='w-full border border-[#BDC1C7] bg-white rounded-b-md z-50'>
+    <div className='absolute left-0 w-full border border-[#BDC1C7] bg-white rounded-b-md z-50'>
       {data.map((option, ind, arr) => (
         <Fragment key={ind}>
           <div
