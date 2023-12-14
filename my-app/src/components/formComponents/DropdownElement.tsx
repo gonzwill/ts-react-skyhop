@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface DropdownElementProps {
   currentChoice: string;
@@ -7,6 +7,21 @@ interface DropdownElementProps {
 
 const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, defaultText }) => {
   const [showDropdownOptions, setShowDropdownOptions] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdownOptions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
 
   return (
     <div className='w-full py-1 select-none'>
