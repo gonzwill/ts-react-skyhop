@@ -14,6 +14,7 @@ interface TestingCentersState {
 
 const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalClick }) => {
   const [clientOption, setClientOption] = useState<string>('multiple');
+  const [importName, setImportName] = useState<string>('');
   const [testingCenters, setTestingCenters] = useState<TestingCentersState>({1: null, 2: null, 3: null, 4: null});
   const [socialDistancingSplitOption, setSocialDistancingSplitOption] = useState<string>('yes');
 
@@ -61,6 +62,13 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
           </div>
           <div className='flex flex-row justify-between mt-5'>
             <div className='w-6/12 flex flex-col'>
+              <DropdownElement 
+                optionsData={['Import1', 'Import2', 'Import3']} 
+                currentChoice={importName} 
+                defaultText={'Select Import Name:'} 
+                handleChoice={(newOption: string) => {setImportName(newOption)}}
+              />
+              <span className='mb-2'></span>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Select a manifest that you'd like to import</div>
               <DragAndDropFileElement />
