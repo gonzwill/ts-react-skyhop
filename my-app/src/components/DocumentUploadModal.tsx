@@ -1,11 +1,16 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useState } from 'react';
+
 import DragAndDropFileElement from './DragAndDropFileElement.tsx';
+import RadioButton from './formComponents/RadioButton.tsx';
 
 interface DocumentUploadModal {
   handleCloseModalClick: () => void;
 }
 
 const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalClick }) => {
+  const [clientOption, setClientOption] = useState<string>('multiple');
+  const [socialDistancingSplitOption, setSocialDistancingSplitOption] = useState<string>('yes');
+
   return (
     <div 
       className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50'
@@ -53,10 +58,44 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
             </div>
             <div className='w-5/12 flex flex-col'>
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Split schedule using social distancing?</div>
+              <div className='flex flex-row'>
+                <RadioButton
+                  checkedValue={socialDistancingSplitOption} 
+                  correctValue='yes'
+                  inputId='socialDistancingSplitOptionYes' 
+                  handleChange={() => {setSocialDistancingSplitOption('yes')}} 
+                  optionText='Yes'
+                />
+                <span className='mr-3'></span>
+                <RadioButton
+                  checkedValue={socialDistancingSplitOption} 
+                  correctValue='no'
+                  inputId='socialDistancingSplitOptionNo' 
+                  handleChange={() => {setSocialDistancingSplitOption('no')}} 
+                  optionText='No'
+                />
+              </div>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-1'>Location Checking:</div>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Client:</div>
+              <div className='flex flex-row'>
+                <RadioButton
+                  checkedValue={clientOption} 
+                  correctValue='single'
+                  inputId='clientOptionSingle' 
+                  handleChange={() => {setClientOption('single')}} 
+                  optionText='Single'
+                />
+                <span className='mr-3'></span>
+                <RadioButton
+                  checkedValue={clientOption} 
+                  correctValue='multiple'
+                  inputId='clientOptionMultiple' 
+                  handleChange={() => {setClientOption('multiple')}} 
+                  optionText='Multiple'
+                />
+              </div>
             </div>
           </div>
         </div>
