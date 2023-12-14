@@ -37,9 +37,26 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
             Document Upload
             <hr className='mt-1 text-[#CBCFDC] '/>
           </div>
-          <div className='flex flex-row justify-between mt-3 sm:mt-5'>
+          <div className='flex flex-row justify-between mt-5'>
             <div className='w-6/12 flex flex-col'>
+              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
+              <div className='text-[#000426] text-[11px] font-medium mb-2'>Select a manifest that you'd like to import</div>
               <DragAndDropFileElement />
+              <span className='mb-2'></span>
+              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
+              <div className='text-[#000426] text-[11px] font-medium mb-1'>Elapse Data Checking:</div>
+              <div className='text-[#49A244] font-medium text-[11px] mb-2'>
+                No Elapsed Dates!
+              </div>
+              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
+              <div className='text-[#000426] text-[11px] font-medium mb-2'>Tolerance Window:</div>
+            </div>
+            <div className='w-5/12 flex flex-col'>
+              <div className='text-[#000426] text-[11px] font-medium mb-2'>Split schedule using social distancing?</div>
+              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
+              <div className='text-[#000426] text-[11px] font-medium mb-1'>Location Checking:</div>
+              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
+              <div className='text-[#000426] text-[11px] font-medium mb-2'>Client:</div>
             </div>
           </div>
         </div>
