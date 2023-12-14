@@ -3,6 +3,7 @@ import React, { MouseEvent, useState } from 'react';
 import DragAndDropFileElement from './DragAndDropFileElement.tsx';
 import DropdownElement from './formComponents/DropdownElement.tsx';
 import RadioButton from './formComponents/RadioButton.tsx';
+import ToggleSwitch from './formComponents/ToggleSwitch.tsx';
 
 interface DocumentUploadModal {
   handleCloseModalClick: () => void;
@@ -14,6 +15,7 @@ interface TestingCentersState {
 
 const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalClick }) => {
   const [clientOption, setClientOption] = useState<string>('multiple');
+  const [displayToleranceSelector, setDisplayToleranceSelector] = useState<boolean>(false);
   const [importName, setImportName] = useState<string>('');
   const [testingCenters, setTestingCenters] = useState<TestingCentersState>({1: null, 2: null, 3: null, 4: null});
   const [socialDistancingSplitOption, setSocialDistancingSplitOption] = useState<string>('yes');
@@ -80,6 +82,20 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               </div>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Tolerance Window:</div>
+              <div className='flex flex-row items-center text-[#092D4E] text-[11px] font-extralight'>
+                <ToggleSwitch 
+                  checkedValue={displayToleranceSelector} 
+                  handleToggle={() => {setDisplayToleranceSelector(!displayToleranceSelector)}} 
+                />
+                <div className='ml-1'>Toggle {displayToleranceSelector === true ? 'ON' : 'OFF'}</div>
+                <div className='mx-2'>|</div>
+                <div className='flex flex-row items-center'>
+                  <div className='flex flex-row'>
+                    <img className='h-4 w-4 mr-1' src='https://i.imgur.com/jJfP1It.png' />
+                    <div>Select Tolerance Level</div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className='w-5/12 flex flex-col'>
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Split schedule using social distancing?</div>
