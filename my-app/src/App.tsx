@@ -1,14 +1,9 @@
-import React from 'react';
-import './App.css';
+import HomePage from './components/HomePage';
 
 function App() {
   return (
     <div>
-      <header className="">
-        <p className='bg-red-100 text-blue-200'>
-          Edit <code>src/App.tsx</code> and save to reload. Hi
-        </p>
-      </header>
+      <HomePage />
     </div>
   );
 }
