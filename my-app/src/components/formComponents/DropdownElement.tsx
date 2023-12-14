@@ -1,11 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 interface DropdownElementProps {
+  optionsData: string[];
   currentChoice: string;
   defaultText: string;
+  handleChoice: (newOption: string) => void;
 }
 
-const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, defaultText }) => {
+interface DropdownOptionsProps {
+  data: string[];
+  handleChoice: (newOption: string) => void;
+}
+
+const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, optionsData, defaultText, handleChoice }) => {
   const [showDropdownOptions, setShowDropdownOptions] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -27,6 +34,8 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, defaul
     <div className='w-full py-1 select-none'>
       <div 
         className='flex flex-row justify-between items-center rounded-md border border-[#BDC1C7] cursor-pointer'
+        onClick={() => setShowDropdownOptions(!showDropdownOptions)}
+        ref={dropdownRef}
       >
         <div className='pl-3 text-[#092D4E] text-[11px] font-extralight'>
           {currentChoice !== null && currentChoice !== '' ? currentChoice : defaultText }
@@ -46,6 +55,27 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, defaul
           />
         </svg>
       </div>
+      {showDropdownOptions &&
+        <DropdownOptions data={optionsData} handleChoice={handleChoice} />
+      }
+    </div>
+  );
+}
+
+const DropdownOptions: React.FC<DropdownOptionsProps> = ({ data, handleChoice }) => {
+  return (
+    <div className='w-full border border-[#BDC1C7] bg-white rounded-b-md z-50'>
+      {data.map((option, ind, arr) => (
+        <Fragment key={ind}>
+          <div
+            className='pl-3 py-1 text-[#092D4E] text-[11px] font-extralight hover:bg-blue-200 cursor-pointer'
+            onMouseDown={() => {handleChoice(option)}}
+          >
+            {option}
+          </div>
+          {ind !== arr.length - 1 && <hr className='border border-b-0 border-[#BDC1C7]' />}
+        </Fragment>
+      ))}
     </div>
   );
 }

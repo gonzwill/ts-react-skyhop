@@ -21,6 +21,13 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
     ? Object.entries(testingCenters).slice(0, 1)
     : Object.entries(testingCenters);
 
+  const handleTestingCenterChange = (testingCenter: number, newOption: string) => {
+    setTestingCenters({
+      ...testingCenters,
+      [testingCenter]: newOption,
+    });
+  };
+
   return (
     <div 
       className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50'
@@ -117,6 +124,8 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                       <DropdownElement 
                         currentChoice={client}
                         defaultText='Select Client'
+                        handleChoice={(newOption: string) => {handleTestingCenterChange(Number(testingCenter), newOption)}} 
+                        optionsData={['Client #1', 'Client #2', 'Client #3', 'Client #4']}
                       />
                     </div>
                     <img 
