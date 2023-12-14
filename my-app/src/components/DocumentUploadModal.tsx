@@ -1,15 +1,25 @@
 import React, { MouseEvent, useState } from 'react';
 
 import DragAndDropFileElement from './DragAndDropFileElement.tsx';
+import DropdownElement from './formComponents/DropdownElement.tsx';
 import RadioButton from './formComponents/RadioButton.tsx';
 
 interface DocumentUploadModal {
   handleCloseModalClick: () => void;
 }
 
+interface TestingCentersState {
+  [testingCenter: number]: string | null;
+}
+
 const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalClick }) => {
   const [clientOption, setClientOption] = useState<string>('multiple');
+  const [testingCenters, setTestingCenters] = useState<TestingCentersState>({1: null, 2: null, 3: null, 4: null});
   const [socialDistancingSplitOption, setSocialDistancingSplitOption] = useState<string>('yes');
+
+  const displayedTestingCenters = clientOption === 'single'
+    ? Object.entries(testingCenters).slice(0, 1)
+    : Object.entries(testingCenters);
 
   return (
     <div 
@@ -98,6 +108,23 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                   handleChange={() => {setClientOption('multiple')}} 
                   optionText='Multiple'
                 />
+              </div>
+              <div className='flex flex-col'>
+                {displayedTestingCenters.map(([testingCenter, client]) => (
+                  <div className='flex flex-row items-center' key={testingCenter}>
+                    <div className='w-[80px] mr-6 text-[#092D4E] text-[10px] font-extralight'>Testing Center {testingCenter}</div>
+                    <div className='w-[110px]'>
+                      <DropdownElement 
+                        currentChoice={client}
+                        defaultText='Select Client'
+                      />
+                    </div>
+                    <img 
+                      className='h-4 w-4 ml-3'
+                      src='https://i.imgur.com/jJfP1It.png' 
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
