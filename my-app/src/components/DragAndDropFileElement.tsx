@@ -1,6 +1,10 @@
 import React, { ChangeEvent, DragEvent, useRef, useState } from 'react';
 
-const DragAndDropFileElement: React.FC = () => {
+interface DragAndDropFileElementProps {
+  handleUploadedDocument: (files: File[]) => void;
+}
+
+const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleUploadedDocument }) => {
   const [isDraggingFile, setIsDraggingFile] = useState<boolean>(false);
   const browseFileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -24,9 +28,19 @@ const DragAndDropFileElement: React.FC = () => {
     setIsDraggingFile(false);
   };
 
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDraggingFile(false);
+
+    const files: File[] = Array.from(e.dataTransfer.files);
+    console.log();
+    handleUploadedDocument(files);
+  };
+
   const handleBrowseFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files: File[] = Array.from(e.target.files);
+      handleUploadedDocument(files);
     }
   };
 
@@ -37,6 +51,7 @@ const DragAndDropFileElement: React.FC = () => {
         onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
       >
         <input 
           className='hidden'
