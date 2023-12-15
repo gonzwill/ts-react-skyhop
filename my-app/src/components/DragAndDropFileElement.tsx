@@ -35,12 +35,14 @@ const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleU
 
     const files: File[] = Array.from(e.dataTransfer.files);
     handleUploadedDocument(files);
+    simulateFileUpload();
   };
   
   const handleBrowseFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files: File[] = Array.from(e.target.files);
       handleUploadedDocument(files);
+      simulateFileUpload()
     }
   };
 
