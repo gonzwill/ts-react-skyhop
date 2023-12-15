@@ -17,8 +17,9 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
   const [clientOption, setClientOption] = useState<string>('multiple');
   const [displayToleranceSelector, setDisplayToleranceSelector] = useState<boolean>(false);
   const [importName, setImportName] = useState<string>('');
-  const [testingCenters, setTestingCenters] = useState<TestingCentersState>({1: null, 2: null, 3: null, 4: null});
   const [socialDistancingSplitOption, setSocialDistancingSplitOption] = useState<string>('yes');
+  const [testingCenters, setTestingCenters] = useState<TestingCentersState>({1: null, 2: null, 3: null, 4: null});
+  const [uploadedDocument, setUploadedDocument] = useState<File[] | []>([]);
 
   const displayedTestingCenters = clientOption === 'single'
     ? Object.entries(testingCenters).slice(0, 1)
@@ -73,7 +74,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               <span className='mb-2'></span>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Select a manifest that you'd like to import</div>
-              <DragAndDropFileElement />
+              <DragAndDropFileElement handleUploadedDocument={(files: File[]) => {setUploadedDocument(files)}}  />
               <span className='mb-2'></span>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-1'>Elapse Data Checking:</div>
