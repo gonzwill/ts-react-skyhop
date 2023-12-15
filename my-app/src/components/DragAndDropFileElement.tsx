@@ -2,9 +2,10 @@ import React, { ChangeEvent, DragEvent, useRef, useState } from 'react';
 
 interface DragAndDropFileElementProps {
   handleUploadedDocument: (files: File[]) => void;
+  handleUploadedDocumentProgress: (progress: number) => void;
 }
 
-const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleUploadedDocument }) => {
+const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleUploadedDocument, handleUploadedDocumentProgress }) => {
   const [isDraggingFile, setIsDraggingFile] = useState<boolean>(false);
   const browseFileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -13,12 +14,12 @@ const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleU
       browseFileInputRef.current.click();
     }
   };
-  
+
   const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDraggingFile(true);
   };
-
+  
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDraggingFile(true);
@@ -27,21 +28,36 @@ const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleU
   const handleDragLeave = () => {
     setIsDraggingFile(false);
   };
-
+  
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDraggingFile(false);
 
     const files: File[] = Array.from(e.dataTransfer.files);
-    console.log();
     handleUploadedDocument(files);
   };
-
+  
   const handleBrowseFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files: File[] = Array.from(e.target.files);
       handleUploadedDocument(files);
     }
+  };
+
+  const simulateFileUpload = () => {
+    handleUploadedDocumentProgress(0);
+
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += (Math.floor(Math.random() * 5) + 1);
+      if (progress > 100) {
+        progress = 100;
+      }
+      handleUploadedDocumentProgress(progress);
+      if (progress === 100) {
+        clearInterval(interval);
+      }
+    }, 20);
   };
 
   return (
