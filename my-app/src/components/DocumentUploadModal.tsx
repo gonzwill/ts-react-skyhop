@@ -102,7 +102,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                 <img className='h-4 w-3 mr-2 my-auto' src='https://i.imgur.com/mUfzmVN.png' />
                 <div className='flex flex-col' style={{width: '90%'}}>
                   <div className='flex flex-row justify-between items-center'>
-                    <div className='text-slate-400 text-[10px] font-light'>
+                    <div className='text-slate-400 text-[9px] sm:text-[10px] font-light'>
                       {file.name}
                     </div>
                     <div className='text-[#4D4F50] text-[9px] font-medium'>
@@ -129,16 +129,16 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
     if (toleranceSettings.displayToleranceSelector && uploadedDocumentProgress === 100) {
       return (
         <>
-          <div className='mx-2'>|</div>
+          <div className='mx-[5px] sm:mx-2'>|</div>
           <div className='relative flex flex-row items-center cursor-pointer'>
-            <div className='flex flex-row hover:underline'>
-              <img className='h-4 w-4 mr-1' src='https://i.imgur.com/jJfP1It.png' />
+            <div className='flex flex-row hover:underline whitespace-nowrap'>
+              <img className='h-4 w-4 mr-1 hidden sm:flex' src='https://i.imgur.com/jJfP1It.png' />
               <div className='select-none' onClick={() => {dispatch({ type: 'toggle_tolerance_level_display' })}}>
                 <span>{toleranceSettings.displayToleranceLevel === true ? 'Hide' : 'Select'}</span> Tolerance Level
               </div>
             </div>
             {toleranceSettings.displayToleranceLevel &&
-              <div className='absolute -top-2 left-[125px] w-[50px] ml-2'>
+              <div className='absolute -top-2 left-[105px] sm:left-[125px] w-[50px] ml-2'>
                 <DropdownElement 
                   optionsData={['1', '2', '3']} 
                   currentChoice={String(toleranceSettings.toleranceLevelValue)} 
@@ -153,22 +153,44 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
     }      
   };
 
+  const renderTestingCenters = () => {
+    return (
+      displayedTestingCenters.map(([testingCenter, client]) => (
+        <div className='flex flex-row items-center' key={testingCenter}>
+          <div className='w-[75px] mr-6 text-[#092D4E] text-[10px] font-extralight whitespace-nowrap'>Testing Center {testingCenter}</div>
+          <div className='min-w-[75px] sm:min-w-[110px]'>
+            <DropdownElement 
+              currentChoice={client}
+              defaultText='Select Client'
+              handleChoice={(newOption: string) => {handleTestingCenterChange(Number(testingCenter), newOption)}} 
+              optionsData={['Client #1', 'Client #2', 'Client #3', 'Client #4']}
+            />
+          </div>
+          <img 
+            className='h-4 w-4 ml-3'
+            src='https://i.imgur.com/jJfP1It.png' 
+          />
+        </div>
+      ))
+    );
+  }
+
   const renderCompletionFooter = () => {
     if (uploadedDocumentProgress === 100) {
       return (
-        <div className='flex flex-col w-[450px] mx-auto mt-5'>
-          <div className='mx-auto text-[#000426] text-sm font-medium'>
+        <div className='flex flex-col w-[400px] sm:w-[450px] mx-auto mt-10'>
+          <div className='mx-auto text-[#000426] text-xs sm:text-sm font-medium whitespace-nowrap'>
             Data in the import file is correct. Please press Continue to import.
           </div>
-          <div className='w-full flex flex-row justify-around mx-auto mt-3 text-xs'>
+          <div className='w-full flex flex-row justify-around mx-auto mt-2 sm:mt-3 text-[10px] sm:text-xs'>
             <div 
-              className='w-5/12 text-center py-2 text-white rounded-md border-2 border-[#1A3E6F] bg-[#1A3E6F] select-none cursor-pointer'
+              className='w-5/12 text-center py-1 sm:py-2 text-white rounded-md border-2 border-[#1A3E6F] bg-[#1A3E6F] select-none cursor-pointer'
               onClick={handleCloseModalClick}
             >
               Continue Import
             </div>
             <div 
-              className='w-5/12 text-center py-2 text-[#F3973E] rounded-md border-2 border-[#F3973E] bg-white select-none cursor-pointer'
+              className='w-5/12 text-center py-1 sm:py-2 text-[#F3973E] rounded-md border-2 border-[#F3973E] bg-white select-none cursor-pointer'
               onClick={handleCloseModalClick}
             >
               Cancel
@@ -185,8 +207,8 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
       onClick={handleCloseModalClick}
     >
       <div 
-        className='h-[600px] w-[800px] p-7 rounded-2xl bg-white'
-        onClick={(e: MouseEvent<HTMLDivElement>) => {e.stopPropagation()}}
+        className='h-[640px] w-[800px] p-7 rounded-2xl bg-white'
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => {e.stopPropagation()}}
       >
         <div className='inline-block p-2 bg-[#041E5A] rounded-lg'>
           <svg
@@ -205,12 +227,12 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
             />
           </svg>
         </div>
-        <div className='w-10/12 flex flex-col mx-auto'>
+        <div className='w-full sm:w-10/12 flex flex-col mx-auto'>
           <div className='w-[200px] mx-auto text-[#082C4D] text-2xl font-medium'>
             Document Upload
             <hr className='mt-1 text-[#CBCFDC] '/>
           </div>
-          <div className='flex flex-row justify-between mt-5'>
+          <div className='flex flex-row justify-around sm:justify-between mt-3 sm:mt-5'>
             <div className='w-6/12 flex flex-col'>
               <DropdownElement 
                 optionsData={['Import1', 'Import2', 'Import3']} 
@@ -219,30 +241,30 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                 handleChoice={(newOption: string) => {setImportName(newOption)}}
               />
               <span className='mb-2'></span>
-              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
+              <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Select a manifest that you'd like to import</div>
               <DragAndDropFileElement 
                 handleUploadedDocument={(files: File[]) => {setUploadedDocument(files)}}  
                 handleUploadedDocumentProgress={(progress) => setUploadedDocumentProgress(progress)} 
               />
               {renderUploadedDocuments()}
-              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
+              <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-1'>Elapse Data Checking:</div>
-              <div className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] font-extralight'} text-[11px] mb-2`}>
+              <div className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] font-extralight'} text-[11px] mb-1 sm:mb-2`}>
                 {uploadedDocumentProgress === 100 ? 'No Elapsed Dates!' : 'No data available for elapsed dates'}
               </div>
-              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
-              <div className='text-[#000426] text-[11px] font-medium mb-2'>Tolerance Window:</div>
+              <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-1 sm:mb-2' />
+              <div className='text-[#000426] text-[11px] font-medium mb-1 sm:mb-2'>Tolerance Window:</div>
               <div className='flex flex-row items-center text-[#092D4E] text-[11px] font-extralight'>
                 <ToggleSwitch 
                   checkedValue={toleranceSettings.displayToleranceSelector} 
                   handleToggle={() => {dispatch({ type: 'toggle_tolerance_selector_display' })}} />
-                <div className='ml-1'>Toggle {toleranceSettings.displayToleranceSelector === true ? 'ON' : 'OFF'}</div>
+                <div className='ml-1 whitespace-nowrap'>Toggle {toleranceSettings.displayToleranceSelector === true ? 'ON' : 'OFF'}</div>
                 {renderToleranceSelector()}
               </div>
             </div>
             <div className='w-5/12 flex flex-col'>
-              <div className='text-[#000426] text-[11px] font-medium mb-2'>Split schedule using social distancing?</div>
+              <div className='text-[#000426] text-[11px] font-medium mb-1 sm:mb-2 whitespace-nowrap'>Split schedule using social distancing?</div>
               <div className='flex flex-row'>
                 <RadioButton
                   checkedValue={socialDistancingSplitOption} 
@@ -260,13 +282,13 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                   optionText='No'
                 />
               </div>
-              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
+              <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-1 sm:mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-1'>Location Checking:</div>
-              <div className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] font-extralight'} text-[11px] mb-2`}>
+              <div className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] font-extralight'} text-[11px] mb-1 sm:mb-2`}>
                 {uploadedDocumentProgress === 100 ? 'All available!' : 'No data available for locations'}
               </div>
-              <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
-              <div className='text-[#000426] text-[11px] font-medium mb-2'>Client:</div>
+              <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-1 sm:mb-2' />
+              <div className='text-[#000426] text-[11px] font-medium mb-1 sm:mb-2'>Client:</div>
               <div className='flex flex-row'>
                 <RadioButton
                   checkedValue={clientOption} 
@@ -285,23 +307,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                 />
               </div>
               <div className='flex flex-col'>
-                {displayedTestingCenters.map(([testingCenter, client]) => (
-                  <div className='flex flex-row items-center' key={testingCenter}>
-                    <div className='w-[80px] mr-6 text-[#092D4E] text-[10px] font-extralight'>Testing Center {testingCenter}</div>
-                    <div className='w-[110px]'>
-                      <DropdownElement 
-                        currentChoice={client}
-                        defaultText='Select Client'
-                        handleChoice={(newOption: string) => {handleTestingCenterChange(Number(testingCenter), newOption)}} 
-                        optionsData={['Client #1', 'Client #2', 'Client #3', 'Client #4']}
-                      />
-                    </div>
-                    <img 
-                      className='h-4 w-4 ml-3'
-                      src='https://i.imgur.com/jJfP1It.png' 
-                    />
-                  </div>
-                ))}
+                {renderTestingCenters()}
               </div>
             </div>
           </div>
