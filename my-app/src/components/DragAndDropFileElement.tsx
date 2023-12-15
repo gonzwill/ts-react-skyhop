@@ -65,7 +65,7 @@ const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleU
   return (
     <div className='h-[130px] w-full flex flex-col items-center border border-[#BCBDBE] rounded-md'>
       <div 
-        className={`h-4/6 w-11/12 flex justify-center items-center mt-3 rounded-md ${isDraggingFile && 'bg-gray-100'}`}
+        className={`h-4/6 w-11/12 flex justify-center items-center mt-3 rounded-md ${isDraggingFile && 'bg-gray-100 dark:bg-gray-700'}`}
         onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -82,7 +82,7 @@ const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleU
           style={{height: isDraggingFile ? '90%': '95%' , width: isDraggingFile ? '95%': '98%' }}
         >
           <img className='h-3 w-3' src='https://i.imgur.com/NTowAnd.png' />
-          <div className='mt-1 text-[#082C4D] text-[10px] font-extralight'>
+          <div className='mt-1 text-[#082C4D] dark:text-white text-[10px] font-extralight'>
             Drag & Drop Here or&nbsp;<span className='font-bold cursor-pointer hover:underline' onClick={handleBrowseFilesClick}>Browse</span>
           </div>
         </div>

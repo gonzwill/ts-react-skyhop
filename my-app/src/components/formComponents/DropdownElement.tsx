@@ -37,11 +37,11 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, option
         onClick={() => setShowDropdownOptions(!showDropdownOptions)}
         ref={dropdownRef}
       >
-        <div className='pl-3 text-[#092D4E] text-[11px] font-extralight'>
+        <div className='pl-3 text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight'>
           {currentChoice !== null && currentChoice !== '' ? currentChoice : defaultText }
         </div>
         <svg
-          className={`h-6 w-6 pr-3 text-[#303144] transform transition-transform ${showDropdownOptions && '-rotate-90 -translate-x-[4px] -translate-y-[6px]'}`}
+          className={`h-6 w-6 pr-3 text-[#303144] dark:text-gray-300 transform transition-transform ${showDropdownOptions && '-rotate-90 -translate-x-[4px] -translate-y-[6px]'}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -63,11 +63,11 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, option
 
 const DropdownOptions: React.FC<DropdownOptionsProps> = ({ data, handleChoice }) => {
   return (
-    <div className='absolute left-0 w-full border border-[#BDC1C7] bg-white rounded-b-md z-50'>
+    <div className='absolute left-0 w-full border border-[#BDC1C7] bg-white dark:bg-gray-800 rounded-b-md z-50'>
       {data.map((option, ind, arr) => (
         <Fragment key={ind}>
           <div
-            className='pl-3 py-1 text-[#092D4E] text-[11px] font-extralight hover:bg-blue-200 cursor-pointer'
+            className={`pl-3 py-1 text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight hover:bg-blue-200 dark:hover:bg-gray-700 cursor-pointer ${ind === arr.length - 1 && 'rounded-md'}`}
             onMouseDown={() => {handleChoice(option)}}
           >
             {option}
