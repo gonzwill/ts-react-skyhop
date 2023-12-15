@@ -161,8 +161,8 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               {renderUploadedDocuments()}
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-1'>Elapse Data Checking:</div>
-              <div className='text-[#49A244] font-medium text-[11px] mb-2'>
-                No Elapsed Dates!
+              <div className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] font-extralight'} text-[11px] mb-2`}>
+                {uploadedDocumentProgress === 100 ? 'No Elapsed Dates!' : 'No data available for elapsed dates'}
               </div>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Tolerance Window:</div>
@@ -202,8 +202,8 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               </div>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-1'>Location Checking:</div>
-              <div className='text-[#49A244] font-medium text-[11px] mb-2'>
-                All available!
+              <div className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] font-extralight'} text-[11px] mb-2`}>
+                {uploadedDocumentProgress === 100 ? 'All available!' : 'No data available for locations'}
               </div>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Client:</div>
