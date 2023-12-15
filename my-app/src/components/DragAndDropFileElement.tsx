@@ -87,7 +87,7 @@ const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleU
           </div>
         </div>
       </div>
-      <div className='h-[20px] flex items-center mx-auto my-2 px-10 py-1 text-white text-[10px] font-medium bg-[#1A3E6F] rounded-md select-none cursor-pointer'>
+      <div className='h-[20px] flex items-center mx-auto my-2 px-10 py-1 text-white text-[10px] font-medium bg-[#1A3E6F] rounded-md whitespace-nowrap select-none cursor-pointer'>
         Upload Manifest
       </div>
     </div>
