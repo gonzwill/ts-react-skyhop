@@ -247,6 +247,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                 handleUploadedDocument={(files: File[]) => {setUploadedDocument(files)}}  
                 handleUploadedDocumentProgress={(progress) => setUploadedDocumentProgress(progress)} 
               />
+              <span className='mb-1 sm:mb-2'></span>
               {renderUploadedDocuments()}
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] dark:text-white text-[11px] font-medium mb-1'>Elapse Data Checking:</div>
