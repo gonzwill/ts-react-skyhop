@@ -20,6 +20,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
   const [socialDistancingSplitOption, setSocialDistancingSplitOption] = useState<string>('yes');
   const [testingCenters, setTestingCenters] = useState<TestingCentersState>({1: null, 2: null, 3: null, 4: null});
   const [uploadedDocument, setUploadedDocument] = useState<File[] | []>([]);
+  const [uploadedDocumentProgress, setUploadedDocumentProgress] = useState<number | null>(null);
 
   const displayedTestingCenters = clientOption === 'single'
     ? Object.entries(testingCenters).slice(0, 1)
@@ -30,6 +31,59 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
       ...testingCenters,
       [testingCenter]: newOption,
     });
+  };
+
+  const formatFileSize = (fileSize: number): string => {
+    const kilobytes = 1024;
+    const megabytes = kilobytes * 1024;
+
+    let formattedFileSize;
+
+    if (fileSize < kilobytes) {
+      formattedFileSize = `${fileSize} B`;
+    } else if (fileSize < megabytes) {
+      const kbFileSize = (fileSize / kilobytes).toFixed(2);
+      formattedFileSize = `${kbFileSize} KB`;
+    } else {
+      const mbFileSize = (fileSize / megabytes).toFixed(2);
+      formattedFileSize = `${mbFileSize} MB`;
+    }
+
+    return formattedFileSize;
+  };
+
+  const renderUploadedDocuments = () => {
+    if (uploadedDocument.length > 0) {
+      return (
+        <div>
+          <hr className='my-2'/>
+          <div>
+            {uploadedDocument.map((file, ind, arr) => (
+              <div className={`flex flex-row ${ind === arr.length - 1 && 'mb-2'}`} key={file.name}>
+                <img className='h-4 w-3 mr-2 my-auto' src='https://i.imgur.com/mUfzmVN.png' />
+                <div className='flex flex-col' style={{width: '90%'}}>
+                  <div className='flex flex-row justify-between items-center'>
+                    <div className='text-slate-400 text-[10px] font-light'>
+                      {file.name}
+                    </div>
+                    <div className='text-[#4D4F50] text-[9px] font-medium'>
+                      {formatFileSize(file.size)}
+                    </div>
+                  </div>
+                  <div className='mt-1'>
+                    <div className='w-full h-[2px] bg-gray-200 rounded-md'>
+                      <div className='h-full bg-[#F28D3C] rounded-md' style={{width: `${uploadedDocumentProgress}%`}}>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <hr className='mb-3' />
+        </div>
+      );
+    }
   };
 
   return (
@@ -74,8 +128,11 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               <span className='mb-2'></span>
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Select a manifest that you'd like to import</div>
-              <DragAndDropFileElement handleUploadedDocument={(files: File[]) => {setUploadedDocument(files)}}  />
-              <span className='mb-2'></span>
+              <DragAndDropFileElement 
+                handleUploadedDocument={(files: File[]) => {setUploadedDocument(files)}}  
+                handleUploadedDocumentProgress={(progress) => setUploadedDocumentProgress(progress)} 
+              />
+              {renderUploadedDocuments()}
               <hr className='w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <div className='text-[#000426] text-[11px] font-medium mb-1'>Elapse Data Checking:</div>
               <div className='text-[#49A244] font-medium text-[11px] mb-2'>
