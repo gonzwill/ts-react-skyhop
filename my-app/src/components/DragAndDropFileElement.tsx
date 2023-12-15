@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { DragEvent, useState } from 'react';
 
 const DragAndDropFileElement: React.FC = () => {
+  const [isDraggingFile, setIsDraggingFile] = useState<boolean>(false);
+
+  const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDraggingFile(true);
+  };
+
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDraggingFile(true);
+  };
+  
+  const handleDragLeave = () => {
+    setIsDraggingFile(false);
+  };
+
   return (
     <div className='h-[130px] w-full flex flex-col items-center border border-[#BCBDBE] rounded-md'>
-      <div className='h-4/6 w-11/12 flex justify-center items-center mt-3 rounded-md'>
-        <div className='h-[85px] w-[300px] flex flex-col justify-center items-center rounded-md border border-dashed border-[#AFB0B1]'>
+      <div 
+        className={`h-4/6 w-11/12 flex justify-center items-center mt-3 rounded-md ${isDraggingFile && 'bg-gray-50'}`}
+        onDragEnter={handleDragEnter}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+      >
+        <div
+          className='flex flex-col justify-center items-center rounded-md border border-dashed border-[#AFB0B1]'
+          style={{height: isDraggingFile ? '90%': '95%' , width: isDraggingFile ? '95%': '98%' }}
+        >
           <img className='h-3 w-3' src='https://i.imgur.com/NTowAnd.png' />
-          <div className='mt-2 text-[#082C4D] text-[11px] font-extralight'>
-            Drag & Drop Here or&nbsp;<span className='font-bold cursor-pointer'>Browse</span>
+          <div className='mt-1 text-[#082C4D] text-[10px] font-extralight'>
+            Drag & Drop Here or&nbsp;<span className='font-bold cursor-pointer hover:underline'>Browse</span>
           </div>
         </div>
       </div>
