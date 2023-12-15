@@ -13,6 +13,45 @@ interface TestingCentersState {
   [testingCenter: number]: string | null;
 }
 
+interface ToleranceSettings {
+  displayToleranceLevel: boolean;
+  displayToleranceSelector: boolean;
+  toleranceLevelValue: number;
+}
+
+type ToggleSelectorDisplay = { type: 'toggle_tolerance_selector_display' };
+type ToggleLevelDisplay = { type: 'toggle_tolerance_level_display' };
+type SetTolerance = { type: 'set_tolerance_level'; payload: number };
+type ToleranceActionType = ToggleSelectorDisplay | ToggleLevelDisplay | SetTolerance;
+
+const initialToleranceSettings: ToleranceSettings = {
+  displayToleranceLevel: false,
+  displayToleranceSelector: false,
+  toleranceLevelValue: 1,
+};
+
+const toleranceReducer = (state: ToleranceSettings, action: ToleranceActionType) => {
+  switch (action.type) {
+    case 'toggle_tolerance_selector_display':
+      return {
+        ...state,
+        displayToleranceSelector: !state.displayToleranceSelector,
+      };
+    case 'toggle_tolerance_level_display':
+      return {
+        ...state,
+        displayToleranceLevel: !state.displayToleranceLevel,
+      };
+    case 'set_tolerance_level':
+      return {
+        ...state,
+        toleranceLevelValue: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
 const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalClick }) => {
   const [clientOption, setClientOption] = useState<string>('multiple');
   const [displayToleranceSelector, setDisplayToleranceSelector] = useState<boolean>(false);
