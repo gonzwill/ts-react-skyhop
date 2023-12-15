@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { MouseEvent, useReducer, useState } from 'react';
 
 import DragAndDropFileElement from './DragAndDropFileElement.tsx';
 import DropdownElement from './formComponents/DropdownElement.tsx';
@@ -54,10 +54,10 @@ const toleranceReducer = (state: ToleranceSettings, action: ToleranceActionType)
 
 const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalClick }) => {
   const [clientOption, setClientOption] = useState<string>('multiple');
-  const [displayToleranceSelector, setDisplayToleranceSelector] = useState<boolean>(false);
   const [importName, setImportName] = useState<string>('');
   const [socialDistancingSplitOption, setSocialDistancingSplitOption] = useState<string>('yes');
   const [testingCenters, setTestingCenters] = useState<TestingCentersState>({1: null, 2: null, 3: null, 4: null});
+  const [toleranceSettings, dispatch] = useReducer(toleranceReducer, initialToleranceSettings);
   const [uploadedDocument, setUploadedDocument] = useState<File[] | []>([]);
   const [uploadedDocumentProgress, setUploadedDocumentProgress] = useState<number | null>(null);
 
@@ -123,6 +123,34 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
         </div>
       );
     }
+  };
+
+  const renderToleranceSelector = () => {
+    if (toleranceSettings.displayToleranceSelector && uploadedDocumentProgress === 100) {
+      return (
+        <>
+          <div className='mx-2'>|</div>
+          <div className='relative flex flex-row items-center cursor-pointer'>
+            <div className='flex flex-row hover:underline'>
+              <img className='h-4 w-4 mr-1' src='https://i.imgur.com/jJfP1It.png' />
+              <div className='select-none' onClick={() => {dispatch({ type: 'toggle_tolerance_level_display' })}}>
+                <span>{toleranceSettings.displayToleranceLevel === true ? 'Hide' : 'Select'}</span> Tolerance Level
+              </div>
+            </div>
+            {toleranceSettings.displayToleranceLevel &&
+              <div className='absolute -top-2 left-[125px] w-[50px] ml-2'>
+                <DropdownElement 
+                  optionsData={['1', '2', '3']} 
+                  currentChoice={String(toleranceSettings.toleranceLevelValue)} 
+                  defaultText={'Tolerance Level'} 
+                  handleChoice={(newOption: string) => {dispatch({ type: 'set_tolerance_level', payload: Number(newOption) })}} 
+                />
+              </div>
+            }
+          </div>
+        </>
+      );
+    }      
   };
 
   const renderCompletionFooter = () => {
@@ -207,17 +235,10 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               <div className='text-[#000426] text-[11px] font-medium mb-2'>Tolerance Window:</div>
               <div className='flex flex-row items-center text-[#092D4E] text-[11px] font-extralight'>
                 <ToggleSwitch 
-                  checkedValue={displayToleranceSelector} 
-                  handleToggle={() => {setDisplayToleranceSelector(!displayToleranceSelector)}} 
-                />
-                <div className='ml-1'>Toggle {displayToleranceSelector === true ? 'ON' : 'OFF'}</div>
-                <div className='mx-2'>|</div>
-                <div className='flex flex-row items-center'>
-                  <div className='flex flex-row'>
-                    <img className='h-4 w-4 mr-1' src='https://i.imgur.com/jJfP1It.png' />
-                    <div>Select Tolerance Level</div>
-                  </div>
-                </div>
+                  checkedValue={toleranceSettings.displayToleranceSelector} 
+                  handleToggle={() => {dispatch({ type: 'toggle_tolerance_selector_display' })}} />
+                <div className='ml-1'>Toggle {toleranceSettings.displayToleranceSelector === true ? 'ON' : 'OFF'}</div>
+                {renderToleranceSelector()}
               </div>
             </div>
             <div className='w-5/12 flex flex-col'>
