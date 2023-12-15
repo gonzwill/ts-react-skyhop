@@ -86,6 +86,32 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
     }
   };
 
+  const renderCompletionFooter = () => {
+    if (uploadedDocumentProgress === 100) {
+      return (
+        <div className='flex flex-col w-[450px] mx-auto mt-5'>
+          <div className='mx-auto text-[#000426] text-sm font-medium'>
+            Data in the import file is correct. Please press Continue to import.
+          </div>
+          <div className='w-full flex flex-row justify-around mx-auto mt-3 text-xs'>
+            <div 
+              className='w-5/12 text-center py-2 text-white rounded-md border-2 border-[#1A3E6F] bg-[#1A3E6F] select-none cursor-pointer'
+              onClick={handleCloseModalClick}
+            >
+              Continue Import
+            </div>
+            <div 
+              className='w-5/12 text-center py-2 text-[#F3973E] rounded-md border-2 border-[#F3973E] bg-white select-none cursor-pointer'
+              onClick={handleCloseModalClick}
+            >
+              Cancel
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+  
   return (
     <div 
       className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50'
@@ -219,6 +245,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               </div>
             </div>
           </div>
+          {renderCompletionFooter()}
         </div>
       </div>
     </div>
