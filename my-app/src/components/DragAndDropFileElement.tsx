@@ -83,13 +83,14 @@ const DragAndDropFileElement: React.FC<DragAndDropFileElementProps> = ({ handleU
         >
           <img className='h-3 w-3' src='https://i.imgur.com/NTowAnd.png' />
           <div className='mt-1 text-[#082C4D] dark:text-white text-[10px] font-extralight'>
-            Drag & Drop Here or&nbsp;<span className='font-bold cursor-pointer hover:underline' onClick={handleBrowseFilesClick}>Browse</span>
+            Drag & Drop Here or&nbsp;
+            <button className='font-bold cursor-pointer hover:underline' onClick={handleBrowseFilesClick}>Browse</button>
           </div>
         </div>
       </div>
-      <div className='h-[20px] flex items-center mx-auto my-2 px-10 py-1 text-white text-[10px] font-medium bg-[#1A3E6F] rounded-md whitespace-nowrap select-none cursor-pointer'>
+      <button className='h-[20px] flex items-center mx-auto my-2 px-10 py-1 text-white text-[10px] font-medium bg-[#1A3E6F] rounded-md whitespace-nowrap select-none cursor-pointer'>
         Upload Manifest
-      </div>
+      </button>
     </div>
   );
 }

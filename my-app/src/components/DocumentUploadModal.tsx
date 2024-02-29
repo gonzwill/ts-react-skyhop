@@ -94,7 +94,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
   const renderUploadedDocuments = () => {
     if (uploadedDocument.length > 0) {
       return (
-        <div>
+        <section>
           <hr className='my-2'/>
           <div>
             {uploadedDocument.map((file, ind, arr) => (
@@ -102,17 +102,16 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                 <img className='h-4 w-3 mr-2 my-auto' src='https://i.imgur.com/mUfzmVN.png' />
                 <div className='flex flex-col' style={{width: '90%'}}>
                   <div className='flex flex-row justify-between items-center'>
-                    <div className='text-slate-400 dark:text-gray-200 text-[9px] sm:text-[10px] font-light'>
+                    <p className='text-slate-400 dark:text-gray-200 text-[9px] sm:text-[10px] font-light'>
                       {file.name}
-                    </div>
-                    <div className='text-[#4D4F50] dark:text-gray-500 text-[9px] font-medium'>
+                    </p>
+                    <p className='text-[#4D4F50] dark:text-gray-500 text-[9px] font-medium'>
                       {formatFileSize(file.size)}
-                    </div>
+                    </p>
                   </div>
                   <div className='mt-1'>
                     <div className='w-full h-[2px] bg-gray-200 rounded-md'>
-                      <div className='h-full bg-[#F28D3C] rounded-md' style={{width: `${uploadedDocumentProgress}%`}}>
-                      </div>
+                      <div className='h-full bg-[#F28D3C] rounded-md' style={{width: `${uploadedDocumentProgress}%`}}></div>
                     </div>
                   </div>
                 </div>
@@ -120,7 +119,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
             ))}
           </div>
           <hr className='mb-3' />
-        </div>
+        </section>
       );
     }
   };
@@ -133,9 +132,9 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
           <div className='relative flex flex-row items-center cursor-pointer'>
             <div className='flex flex-row hover:underline whitespace-nowrap'>
               <img className='h-4 w-4 mr-1 hidden sm:flex' src='https://i.imgur.com/jJfP1It.png' />
-              <div className='select-none' onClick={() => {dispatch({ type: 'toggle_tolerance_level_display' })}}>
+              <button className='select-none' onClick={() => {dispatch({ type: 'toggle_tolerance_level_display' })}}>
                 <span>{toleranceSettings.displayToleranceLevel === true ? 'Hide' : 'Select'}</span> Tolerance Level
-              </div>
+              </button>
             </div>
             {toleranceSettings.displayToleranceLevel &&
               <div className='absolute -top-2 left-[105px] sm:left-[125px] w-[50px] ml-2'>
@@ -155,48 +154,52 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
 
   const renderTestingCenters = () => {
     return (
-      displayedTestingCenters.map(([testingCenter, client]) => (
-        <div className='flex flex-row items-center' key={testingCenter}>
-          <div className='w-[75px] mr-6 text-[#092D4E] dark:text-gray-300 text-[10px] font-extralight whitespace-nowrap'>Testing Center {testingCenter}</div>
-          <div className='min-w-[75px] sm:min-w-[110px]'>
-            <DropdownElement 
-              currentChoice={client}
-              defaultText='Select Client'
-              handleChoice={(newOption: string) => {handleTestingCenterChange(Number(testingCenter), newOption)}} 
-              optionsData={['Client #1', 'Client #2', 'Client #3', 'Client #4']}
+      <section>
+        {displayedTestingCenters.map(([testingCenter, client]) => (
+          <div className='flex flex-row items-center' key={testingCenter}>
+            <p className='w-[75px] mr-6 text-[#092D4E] dark:text-gray-300 text-[10px] font-extralight whitespace-nowrap'>Testing Center {testingCenter}</p>
+            <div className='min-w-[75px] sm:min-w-[110px]'>
+              <DropdownElement 
+                currentChoice={client}
+                defaultText='Select Client'
+                handleChoice={(newOption: string) => {handleTestingCenterChange(Number(testingCenter), newOption)}} 
+                optionsData={['Client #1', 'Client #2', 'Client #3', 'Client #4']}
+              />
+            </div>
+            <img 
+              className='h-4 w-4 ml-3'
+              src='https://i.imgur.com/jJfP1It.png' 
             />
           </div>
-          <img 
-            className='h-4 w-4 ml-3'
-            src='https://i.imgur.com/jJfP1It.png' 
-          />
-        </div>
-      ))
+        ))}
+      </section>
     );
-  }
+  };
 
   const renderCompletionFooter = () => {
     if (uploadedDocumentProgress === 100) {
       return (
-        <div className='flex flex-col w-[400px] sm:w-[450px] mx-auto mt-10'>
-          <div className='mx-auto text-[#000426] dark:text-white text-xs sm:text-sm font-medium whitespace-nowrap'>
-            Data in the import file is correct. Please press Continue to import.
-          </div>
-          <div className='w-full flex flex-row justify-around mx-auto mt-2 sm:mt-3 text-[10px] sm:text-xs'>
-            <div 
-              className='w-5/12 text-center py-1 sm:py-2 text-white rounded-md border-2 border-[#1A3E6F] bg-[#1A3E6F] select-none cursor-pointer'
-              onClick={handleCloseModalClick}
-            >
-              Continue Import
+        <section>
+          <div className='flex flex-col w-[400px] sm:w-[450px] mx-auto mt-10'>
+            <p className='mx-auto text-[#000426] dark:text-white text-xs sm:text-sm font-medium whitespace-nowrap'>
+              Data in the import file is correct. Please press Continue to import.
+            </p>
+            <div className='w-full flex flex-row justify-around mx-auto mt-2 sm:mt-3 text-[10px] sm:text-xs'>
+              <button 
+                className='w-5/12 text-center py-1 sm:py-2 text-white rounded-md border-2 border-[#1A3E6F] bg-[#1A3E6F] select-none cursor-pointer'
+                onClick={handleCloseModalClick}
+              >
+                Continue Import
+              </button>
+              <button 
+                className='w-5/12 text-center py-1 sm:py-2 text-[#F3973E] dark:text-white rounded-md border-2 border-[#F3973E] bg-white dark:bg-[#F3973E] select-none cursor-pointer'
+                onClick={handleCloseModalClick}
+              >
+                Cancel
+              </button>
             </div>
-            <div 
-              className='w-5/12 text-center py-1 sm:py-2 text-[#F3973E] dark:text-white rounded-md border-2 border-[#F3973E] bg-white dark:bg-[#F3973E] select-none cursor-pointer'
-              onClick={handleCloseModalClick}
-            >
-              Cancel
-            </div>
           </div>
-        </div>
+        </section>
       );
     }
   };
@@ -210,7 +213,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
         className='h-[640px] w-[800px] p-7 rounded-2xl bg-white dark:bg-gray-800'
         onClick={(e: React.MouseEvent<HTMLDivElement>) => {e.stopPropagation()}}
       >
-        <div className='inline-block p-2 bg-[#041E5A] dark:bg-[#1A3E6F] rounded-lg'>
+        <button className='inline-block p-2 bg-[#041E5A] dark:bg-[#1A3E6F] rounded-lg'>
           <svg
             className="h-5 w-5 text-white hover:text-gray-200 cursor-pointer"
             fill="none"
@@ -226,90 +229,104 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               d="M6 18L18 6M6 6l12 12"
             />
           </svg>
-        </div>
+        </button>
         <div className='w-full sm:w-10/12 flex flex-col mx-auto'>
-          <div className='w-[200px] mx-auto text-[#082C4D] dark:text-white text-2xl font-medium'>
+          <h1 className='w-[200px] mx-auto text-[#082C4D] dark:text-white text-2xl font-medium'>
             Document Upload
             <hr className='mt-1 text-[#CBCFDC] '/>
-          </div>
+          </h1>
           <div className='flex flex-row justify-around sm:justify-between mt-3 sm:mt-5'>
             <div className='w-6/12 flex flex-col'>
-              <DropdownElement 
-                optionsData={['Import1', 'Import2', 'Import3']} 
-                currentChoice={importName} 
-                defaultText={'Select Import Name:'} 
-                handleChoice={(newOption: string) => {setImportName(newOption)}}
-              />
-              <span className='mb-2'></span>
+              <section>
+                <DropdownElement 
+                  optionsData={['Import1', 'Import2', 'Import3']} 
+                  currentChoice={importName} 
+                  defaultText={'Select Import Name:'} 
+                  handleChoice={(newOption: string) => {setImportName(newOption)}}
+                />
+                <span className='mb-2'></span>
+              </section>
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
-              <div className='text-[#000426] dark:text-white  text-[11px] font-medium mb-2'>Select a manifest that you'd like to import</div>
-              <DragAndDropFileElement 
-                handleUploadedDocument={(files: File[]) => {setUploadedDocument(files)}}  
-                handleUploadedDocumentProgress={(progress) => setUploadedDocumentProgress(progress)} 
-              />
-              <span className='mb-1 sm:mb-2'></span>
-              {renderUploadedDocuments()}
+              <section>
+                <h2 className='text-[#000426] dark:text-white  text-[11px] font-medium mb-2'>Select a manifest that you'd like to import</h2>
+                <DragAndDropFileElement 
+                  handleUploadedDocument={(files: File[]) => {setUploadedDocument(files)}}  
+                  handleUploadedDocumentProgress={(progress) => setUploadedDocumentProgress(progress)} 
+                />
+                <span className='mb-1 sm:mb-2'></span>
+                {renderUploadedDocuments()}
+              </section>
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
-              <div className='text-[#000426] dark:text-white text-[11px] font-medium mb-1'>Elapse Data Checking:</div>
-              <div className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] dark:text-gray-500 font-extralight'} text-[11px] mb-1 sm:mb-2`}>
-                {uploadedDocumentProgress === 100 ? 'No Elapsed Dates!' : 'No data available for elapsed dates'}
-              </div>
+              <section>
+                <h2 className='text-[#000426] dark:text-white text-[11px] font-medium mb-1'>Elapse Data Checking:</h2>
+                <p className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] dark:text-gray-500 font-extralight'} text-[11px] mb-1 sm:mb-2`}>
+                  {uploadedDocumentProgress === 100 ? 'No Elapsed Dates!' : 'No data available for elapsed dates'}
+                </p>
+              </section>
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-1 sm:mb-2' />
-              <div className='text-[#000426] dark:text-white text-[11px] font-medium mb-1 sm:mb-2'>Tolerance Window:</div>
-              <div className='flex flex-row items-center text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight'>
-                <ToggleSwitch 
-                  checkedValue={toleranceSettings.displayToleranceSelector} 
-                  handleToggle={() => {dispatch({ type: 'toggle_tolerance_selector_display' })}} />
-                <div className='ml-1 whitespace-nowrap'>Toggle {toleranceSettings.displayToleranceSelector === true ? 'ON' : 'OFF'}</div>
-                {renderToleranceSelector()}
-              </div>
+              <section>
+                <h2 className='text-[#000426] dark:text-white text-[11px] font-medium mb-1 sm:mb-2'>Tolerance Window:</h2>
+                <div className='flex flex-row items-center text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight'>
+                  <ToggleSwitch 
+                    checkedValue={toleranceSettings.displayToleranceSelector} 
+                    handleToggle={() => {dispatch({ type: 'toggle_tolerance_selector_display' })}} />
+                  <p className='ml-1 whitespace-nowrap'>Toggle {toleranceSettings.displayToleranceSelector === true ? 'ON' : 'OFF'}</p>
+                  {renderToleranceSelector()}
+                </div>
+              </section>
             </div>
             <div className='w-5/12 flex flex-col'>
-              <div className='text-[#000426] dark:text-white text-[11px] font-medium mb-1 sm:mb-2 whitespace-nowrap'>Split schedule using social distancing?</div>
-              <div className='flex flex-row'>
-                <RadioButton
-                  checkedValue={socialDistancingSplitOption} 
-                  correctValue='yes'
-                  inputId='socialDistancingSplitOptionYes' 
-                  handleChange={() => {setSocialDistancingSplitOption('yes')}} 
-                  optionText='Yes'
-                />
-                <span className='mr-3'></span>
-                <RadioButton
-                  checkedValue={socialDistancingSplitOption} 
-                  correctValue='no'
-                  inputId='socialDistancingSplitOptionNo' 
-                  handleChange={() => {setSocialDistancingSplitOption('no')}} 
-                  optionText='No'
-                />
-              </div>
+              <section>
+                <h2 className='text-[#000426] dark:text-white text-[11px] font-medium mb-1 sm:mb-2 whitespace-nowrap'>Split schedule using social distancing?</h2>
+                <div className='flex flex-row'>
+                  <RadioButton
+                    checkedValue={socialDistancingSplitOption} 
+                    correctValue='yes'
+                    inputId='socialDistancingSplitOptionYes' 
+                    handleChange={() => {setSocialDistancingSplitOption('yes')}} 
+                    optionText='Yes'
+                  />
+                  <span className='mr-3'></span>
+                  <RadioButton
+                    checkedValue={socialDistancingSplitOption} 
+                    correctValue='no'
+                    inputId='socialDistancingSplitOptionNo' 
+                    handleChange={() => {setSocialDistancingSplitOption('no')}} 
+                    optionText='No'
+                  />
+                </div>
+              </section>
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-1 sm:mb-2' />
-              <div className='text-[#000426] dark:text-white text-[11px] font-medium mb-1'>Location Checking:</div>
-              <div className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] dark:text-gray-500 font-extralight'} text-[11px] mb-1 sm:mb-2`}>
-                {uploadedDocumentProgress === 100 ? 'All available!' : 'No data available for locations'}
-              </div>
+              <section>
+                <h2 className='text-[#000426] dark:text-white text-[11px] font-medium mb-1'>Location Checking:</h2>
+                <p className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] dark:text-gray-500 font-extralight'} text-[11px] mb-1 sm:mb-2`}>
+                  {uploadedDocumentProgress === 100 ? 'All available!' : 'No data available for locations'}
+                </p>
+              </section>
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-1 sm:mb-2' />
-              <div className='text-[#000426] dark:text-white text-[11px] font-medium mb-1 sm:mb-2'>Client:</div>
-              <div className='flex flex-row'>
-                <RadioButton
-                  checkedValue={clientOption} 
-                  correctValue='single'
-                  inputId='clientOptionSingle' 
-                  handleChange={() => {setClientOption('single')}} 
-                  optionText='Single'
-                />
-                <span className='mr-3'></span>
-                <RadioButton
-                  checkedValue={clientOption} 
-                  correctValue='multiple'
-                  inputId='clientOptionMultiple' 
-                  handleChange={() => {setClientOption('multiple')}} 
-                  optionText='Multiple'
-                />
-              </div>
-              <div className='flex flex-col'>
-                {renderTestingCenters()}
-              </div>
+              <section>
+                <h2 className='text-[#000426] dark:text-white text-[11px] font-medium mb-1 sm:mb-2'>Client:</h2>
+                <div className='flex flex-row'>
+                  <RadioButton
+                    checkedValue={clientOption} 
+                    correctValue='single'
+                    inputId='clientOptionSingle' 
+                    handleChange={() => {setClientOption('single')}} 
+                    optionText='Single'
+                  />
+                  <span className='mr-3'></span>
+                  <RadioButton
+                    checkedValue={clientOption} 
+                    correctValue='multiple'
+                    inputId='clientOptionMultiple' 
+                    handleChange={() => {setClientOption('multiple')}} 
+                    optionText='Multiple'
+                  />
+                </div>
+                <div className='flex flex-col'>
+                  {renderTestingCenters()}
+                </div>
+              </section>
             </div>
           </div>
           {renderCompletionFooter()}
