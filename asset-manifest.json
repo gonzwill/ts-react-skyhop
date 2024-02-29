@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ts-react-skyhop/static/css/main.cfd8d2b7.css",
-    "main.js": "/ts-react-skyhop/static/js/main.0af3997f.js",
+    "main.js": "/ts-react-skyhop/static/js/main.f7e2b1ce.js",
     "index.html": "/ts-react-skyhop/index.html",
     "main.cfd8d2b7.css.map": "/ts-react-skyhop/static/css/main.cfd8d2b7.css.map",
-    "main.0af3997f.js.map": "/ts-react-skyhop/static/js/main.0af3997f.js.map"
+    "main.f7e2b1ce.js.map": "/ts-react-skyhop/static/js/main.f7e2b1ce.js.map"
   },
   "entrypoints": [
     "static/css/main.cfd8d2b7.css",
-    "static/js/main.0af3997f.js"
+    "static/js/main.f7e2b1ce.js"
   ]
 }
