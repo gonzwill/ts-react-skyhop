@@ -33,7 +33,7 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, option
   return (
     <div className='relative w-full py-1 select-none'>
       <div 
-        className={`flex flex-row justify-between items-center rounded-md border border-[#BDC1C7] cursor-pointer ${showDropdownOptions && 'rounded-b-none'}`}
+        className={`flex flex-row justify-between items-center rounded-md border border-[#BDC1C7] dark:border-[#C8CCD1] dark:border-[#C8CCD1] bg-white dark:bg-gray-700 cursor-pointer ${showDropdownOptions && 'rounded-b-none'}`}
         onClick={() => setShowDropdownOptions(!showDropdownOptions)}
         ref={dropdownRef}
       >
@@ -63,16 +63,16 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, option
 
 const DropdownOptions: React.FC<DropdownOptionsProps> = ({ data, handleChoice }) => {
   return (
-    <div className='absolute left-0 w-full border border-[#BDC1C7] bg-white dark:bg-gray-800 rounded-b-md z-50'>
+    <div className='absolute left-0 w-full border border-[#BDC1C7] dark:border-[#C8CCD1] bg-white dark:bg-gray-700 rounded-b-md z-50'>
       {data.map((option, ind, arr) => (
         <Fragment key={ind}>
           <div
-            className={`pl-3 py-1 text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight hover:bg-blue-200 dark:hover:bg-gray-700 cursor-pointer ${ind === arr.length - 1 && 'rounded-md'}`}
+            className={`pl-3 py-1 text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight hover:bg-blue-200 dark:hover:bg-gray-600 cursor-pointer ${ind === arr.length - 1 && 'rounded-md'}`}
             onMouseDown={() => {handleChoice(option)}}
           >
             {option}
           </div>
-          {ind !== arr.length - 1 && <hr className='border border-b-0 border-[#BDC1C7]' />}
+          {ind !== arr.length - 1 && <hr className='border border-b-0 border-[#BDC1C7] dark:border-[#C8CCD1]' />}
         </Fragment>
       ))}
     </div>

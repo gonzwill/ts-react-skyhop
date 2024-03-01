@@ -1,5 +1,6 @@
 import React, { MouseEvent, useReducer, useState } from 'react';
 
+import DarkModeToggleButton from './DarkModeToggleButton.tsx'
 import DragAndDropFileElement from './DragAndDropFileElement.tsx';
 import DropdownElement from './formComponents/DropdownElement.tsx';
 import RadioButton from './formComponents/RadioButton.tsx';
@@ -7,6 +8,8 @@ import ToggleSwitch from './formComponents/ToggleSwitch.tsx';
 
 interface DocumentUploadModal {
   handleCloseModalClick: () => void;
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
 }
 
 interface TestingCentersState {
@@ -52,7 +55,7 @@ const toleranceReducer = (state: ToleranceSettings, action: ToleranceActionType)
   }
 };
 
-const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalClick }) => {
+const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalClick, isDarkMode, toggleDarkMode }) => {
   const [clientOption, setClientOption] = useState<string>('multiple');
   const [importName, setImportName] = useState<string>('');
   const [socialDistancingSplitOption, setSocialDistancingSplitOption] = useState<string>('yes');
@@ -213,25 +216,31 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
         className='h-[640px] w-[800px] p-7 rounded-2xl bg-white dark:bg-gray-800'
         onClick={(e: React.MouseEvent<HTMLDivElement>) => {e.stopPropagation()}}
       >
-        <button className='inline-block p-2 bg-[#041E5A] dark:bg-[#1A3E6F] rounded-lg'>
-          <svg
-            className="h-5 w-5 text-white hover:text-gray-200 cursor-pointer"
-            fill="none"
-            onClick={handleCloseModalClick}
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
+        <div className='flex justify-between items-center py-2'> 
+          <button className='inline-block p-2 bg-[#041E5A] dark:bg-[#1A3E6F] rounded-lg'>
+            <svg
+              className="h-5 w-5 text-white hover:text-gray-200 cursor-pointer"
+              fill="none"
+              onClick={handleCloseModalClick}
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          {/* Messy but it works for now */}
+          <div className='mb-[15px] mr-[25px]'>
+            <DarkModeToggleButton isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+          </div>
+        </div>
         <div className='w-full sm:w-10/12 flex flex-col mx-auto'>
-          <h1 className='w-[200px] mx-auto text-[#082C4D] dark:text-white text-2xl font-medium'>
+          <h1 className='w-[200px] mx-auto text-[#082C4D] dark:text-white text-2xl font-medium select-none'>
             Document Upload
             <hr className='mt-1 text-[#CBCFDC] '/>
           </h1>
@@ -259,7 +268,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <section>
                 <h2 className='text-[#000426] dark:text-white text-[11px] font-medium mb-1'>Elapse Data Checking:</h2>
-                <p className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] dark:text-gray-500 font-extralight'} text-[11px] mb-1 sm:mb-2`}>
+                <p className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] dark:text-[#60D25A] font-medium' : 'text-[#4D4F50] dark:text-gray-500 font-extralight'} text-[11px] mb-1 sm:mb-2`}>
                   {uploadedDocumentProgress === 100 ? 'No Elapsed Dates!' : 'No data available for elapsed dates'}
                 </p>
               </section>
@@ -299,7 +308,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-1 sm:mb-2' />
               <section>
                 <h2 className='text-[#000426] dark:text-white text-[11px] font-medium mb-1'>Location Checking:</h2>
-                <p className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] font-medium' : 'text-[#4D4F50] dark:text-gray-500 font-extralight'} text-[11px] mb-1 sm:mb-2`}>
+                <p className={`${uploadedDocumentProgress === 100 ? 'text-[#49A244] dark:text-[#60D25A] font-medium' : 'text-[#4D4F50] dark:text-gray-500 font-extralight'} text-[11px] mb-1 sm:mb-2`}>
                   {uploadedDocumentProgress === 100 ? 'All available!' : 'No data available for locations'}
                 </p>
               </section>
