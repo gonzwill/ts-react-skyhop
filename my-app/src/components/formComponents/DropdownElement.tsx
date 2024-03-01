@@ -67,7 +67,7 @@ const DropdownOptions: React.FC<DropdownOptionsProps> = ({ data, handleChoice })
       {data.map((option, ind, arr) => (
         <Fragment key={ind}>
           <div
-            className={`pl-3 py-1 text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight hover:bg-blue-200 dark:hover:bg-gray-600 cursor-pointer ${ind === arr.length - 1 && 'rounded-md'}`}
+            className={`pl-3 py-1 text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight hover:bg-blue-200 dark:hover:bg-gray-600 cursor-pointer ${ind === arr.length - 1 && 'rounded-b-md'}`}
             onMouseDown={() => {handleChoice(option)}}
           >
             {option}
