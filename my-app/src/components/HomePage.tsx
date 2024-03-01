@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 
-import DocumentUploadModal from './DocumentUploadModal'
+import DocumentUploadModal from './DocumentUploadModal';
 
-const HomePage: React.FC = () => {
+interface HomePageProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ isDarkMode, toggleDarkMode }) => {
   const [showDocumentUploadModal, setShowDocumentUploadModal] = useState<boolean>(false);
 
   return (
@@ -14,7 +19,11 @@ const HomePage: React.FC = () => {
         Upload document!
       </button>
       {showDocumentUploadModal &&
-        <DocumentUploadModal handleCloseModalClick={() => {setShowDocumentUploadModal(false)}} />
+        <DocumentUploadModal 
+          handleCloseModalClick={() => {setShowDocumentUploadModal(false)}}
+          isDarkMode={isDarkMode}
+          toggleDarkMode={toggleDarkMode}
+        />
       }
     </div>
   );
