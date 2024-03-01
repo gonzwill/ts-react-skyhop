@@ -31,13 +31,13 @@ const DropdownElement: React.FC<DropdownElementProps> = ({ currentChoice, option
   }, []);
 
   return (
-    <div className='relative w-full py-1 select-none'>
+    <div className='relative py-1 select-none'>
       <div 
-        className={`flex flex-row justify-between items-center rounded-md border border-[#BDC1C7] dark:border-[#C8CCD1] dark:border-[#C8CCD1] bg-white dark:bg-gray-700 cursor-pointer ${showDropdownOptions && 'rounded-b-none'}`}
+        className={`flex flex-row justify-between items-center rounded-md border border-[#BDC1C7] dark:border-[#C8CCD1] dark:border-[#C8CCD1] bg-white dark:bg-gray-700 cursor-pointer ${showDropdownOptions && 'border-b-none rounded-b-none'}`}
         onClick={() => setShowDropdownOptions(!showDropdownOptions)}
         ref={dropdownRef}
       >
-        <p className='pl-3 text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight'>
+        <p className='pl-2.5 sm:pl-3 text-[#092D4E] dark:text-gray-300 text-[11px] font-extralight'>
           {currentChoice !== null && currentChoice !== '' ? currentChoice : defaultText }
         </p>
         <svg

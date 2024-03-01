@@ -161,7 +161,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
         {displayedTestingCenters.map(([testingCenter, client]) => (
           <div className='flex flex-row items-center' key={testingCenter}>
             <p className='w-[75px] mr-6 text-[#092D4E] dark:text-gray-300 text-[10px] font-extralight whitespace-nowrap'>Testing Center {testingCenter}</p>
-            <div className='min-w-[75px] sm:min-w-[110px]'>
+            <div className='w-full'>
               <DropdownElement 
                 currentChoice={client}
                 defaultText='Select Client'
