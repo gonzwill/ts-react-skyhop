@@ -253,7 +253,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                   defaultText={'Select Import Name:'} 
                   handleChoice={(newOption: string) => {setImportName(newOption)}}
                 />
-                <span className='mb-2'></span>
+                <div className='mb-2'></div>
               </section>
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
               <section>
@@ -262,7 +262,7 @@ const DocumentUploadModal: React.FC<DocumentUploadModal> = ({ handleCloseModalCl
                   handleUploadedDocument={(files: File[]) => {setUploadedDocument(files)}}  
                   handleUploadedDocumentProgress={(progress) => setUploadedDocumentProgress(progress)} 
                 />
-                <span className='mb-1 sm:mb-2'></span>
+                <div className='mb-1 sm:mb-2'></div>
                 {renderUploadedDocuments()}
               </section>
               <hr className='w-[170px] sm:w-[200px] border-b-0 border-[#CBCFDC] mb-2' />
